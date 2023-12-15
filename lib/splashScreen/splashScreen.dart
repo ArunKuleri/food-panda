@@ -10,6 +10,9 @@ class MySplashScreen extends StatefulWidget {
 }
 
 class _MySplashScreenState extends State<MySplashScreen> {
+  // this startTimer function is to display a screen before the login screen is displayed
+  // duration is 8 seconds after that it will generate the generate the register Auth screen
+
   startTimer() {
     Timer(Duration(seconds: 8), () async {
       Navigator.push(context, MaterialPageRoute(builder: (c) => Auth()));

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_panda/widgets/customtextfield.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -19,7 +21,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController confirmpasswordcontroller = TextEditingController();
   TextEditingController phonelcontroller = TextEditingController();
   TextEditingController locationcontroller = TextEditingController();
+
   XFile? imageXFile;
+  Position? position;
+  List<Placemark>? placeMarks;
+  Future<void> _getImage() async {
+    imageXFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      imageXFile;
+    });
+  }
+
+  getCurrentLocation() async {
+    Position newPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    position = newPosition;
+    placeMarks =
+        await placemarkFromCoordinates(position!.latitude, position!.longitude);
+    Placemark pMark = placeMarks![0];
+    String completeAddress =
+        '${pMark.subThoroughfare} ${pMark.subThoroughfare} ${pMark.subLocality} ${pMark.locality}, ${pMark.subAdministrativeArea},${pMark.administrativeArea} ${pMark.postalCode}, ${pMark.country}';
+    locationcontroller.text = completeAddress;
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            "Location Permiision Denied ",
+          )));
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              "Location Permiision Denied ",
+            )));
+      } else if (permission == LocationPermission.deniedForever) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              "Location Permiision Denied ",
+            )));
+      }
+    }
+  }
+
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -32,6 +83,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 10,
           ),
           InkWell(
+            onTap: () {
+              _getImage();
+            },
             child: CircleAvatar(
               radius: MediaQuery.of(context).size.width * 0.20,
               backgroundColor: Colors.white,
@@ -89,13 +143,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 40,
                   alignment: Alignment.center,
                   child: ElevatedButton.icon(
-                    label: Text(
+                    label: const Text(
                       "Get My Location",
-                      style: TextStyle(color: Colors.cyan),
+                      style: TextStyle(color: Colors.black),
                     ),
-                    icon: Icon(Icons.location_on),
+                    icon: const Icon(
+                      Icons.location_on,
+                      color: Colors.amber,
+                    ),
                     onPressed: () {
-                      print("clicked");
+                      getCurrentLocation();
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -112,16 +169,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
             onPressed: () {
               print("clicked");
             },
-            child: Text(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 213, 0, 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 10)),
+            child: const Text(
               "Sign up ",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 3, 54, 54),
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10)),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           )
         ],

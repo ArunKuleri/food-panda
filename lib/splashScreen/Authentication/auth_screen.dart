@@ -19,8 +19,8 @@ class _AuthState extends State<Auth> {
               decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       colors: [
-                        Colors.black,
-                        Colors.cyan,
+                        Colors.deepOrangeAccent,
+                        Colors.amber,
                       ],
                       begin: FractionalOffset(0.0, 0.0),
                       end: FractionalOffset(1.0, 0.0),
@@ -62,7 +62,7 @@ class _AuthState extends State<Auth> {
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    colors: [Colors.black, Colors.cyan])),
+                    colors: [Colors.deepOrange, Colors.amber])),
             child: const TabBarView(children: [
               LoginScreen(),
               SignUpScreen(),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "429277438304",
+    "project_id": "foodpanda-5efd2",
+    "storage_bucket": "foodpanda-5efd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429277438304:android:e34ae5f80e6a8a1bbfbe05",
+        "android_client_info": {
+          "package_name": "com.example.food_panda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCucFHY6ro9IUFvCjwQdyAx1s1llJ8yU8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
