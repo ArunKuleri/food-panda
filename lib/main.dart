@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_panda/splashScreen/splashScreen.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized;
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

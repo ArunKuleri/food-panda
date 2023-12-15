@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_panda/widgets/customtextfield.dart';
+import 'package:food_panda/widgets/error_dialog.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -68,6 +69,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               "Location Permiision Denied ",
             )));
       }
+    }
+  }
+
+  Future<void> formValidation() async {
+    if (imageXFile == null) {
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorDialog(
+              message: "please select an image ",
+            );
+          });
     }
   }
 
@@ -167,7 +180,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              print("clicked");
+              formValidation();
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 213, 0, 0),
