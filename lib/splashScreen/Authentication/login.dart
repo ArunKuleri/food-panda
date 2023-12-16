@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Image.asset(
                 'assets/images/seller.png',
                 height: 270,
@@ -54,16 +54,17 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: () {
               print("clicked");
             },
-            child: Text(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 236, 0, 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+            child: const Text(
               "Sign up ",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 236, 0, 0),
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           )
         ],

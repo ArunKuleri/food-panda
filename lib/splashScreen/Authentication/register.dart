@@ -77,10 +77,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
       showDialog(
           context: context,
           builder: (c) {
-            return ErrorDialog(
+            return const ErrorDialog(
               message: "please select an image ",
             );
           });
+    } else {
+      if (passwordcontroller.text == confirmpasswordcontroller.text) {
+        if (confirmpasswordcontroller.text.isNotEmpty &&
+            emailcontroller.text.isNotEmpty &&
+            namecontroller.text.isNotEmpty &&
+            phonelcontroller.text.isNotEmpty) {}
+      } else {
+        showDialog(
+            context: context,
+            builder: (c) {
+              return const ErrorDialog(
+                  message: "Please write complete required info");
+            });
+      }
     }
   }
 

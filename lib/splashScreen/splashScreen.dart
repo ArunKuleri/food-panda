@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
   // duration is 8 seconds after that it will generate the generate the register Auth screen
 
   startTimer() {
-    Timer(Duration(seconds: 8), () async {
+    Timer(const Duration(seconds: 8), () async {
       Navigator.push(context, MaterialPageRoute(builder: (c) => Auth()));
     });
   }
